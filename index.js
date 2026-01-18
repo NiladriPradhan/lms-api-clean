@@ -49,7 +49,7 @@ app.use("/api/v1/progress", courseProgressRoute);
 app.get("/home", (req, res) => {
   res.status(200).json({
     success: true,
-    message: "home page from server 🟢",
+    message: "home page from server running 🟢",
   });
 });
 
