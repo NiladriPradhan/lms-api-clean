@@ -20,7 +20,7 @@ app.post(
   (req, res, next) => {
     // forward to router manually
     next();
-  }
+  },
 );
 
 /* ================= NORMAL MIDDLEWARE ================= */
@@ -30,10 +30,16 @@ app.use(
   cors({
     origin: "http://localhost:5173",
     credentials: true,
-  })
+  }),
 );
 
 /* ================= ROUTES ================= */
+app.get("/", (req, res) => {
+  return res.status(200).json({
+    success: true,
+    message: "LMS backend api running successfully",
+  });
+});
 app.use("/api/v1/purchase", purchaseRoute);
 app.use("/api/v1/media", mediaRoute);
 app.use("/api/v1/user", userRoute);
