@@ -35,22 +35,53 @@ import { deleteVideoFromCloudinary } from "../utils/cloudinary.js";
 //   }
 // };
 
+// export const createLecture = async (req, res) => {
+//   try {
+//     const { lectureTitle, videoInfo } = req.body;
+//     const { courseId } = req.params;
+
+//     if (!lectureTitle || !courseId || !videoInfo?.videoUrl) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "Lecture title and video are required",
+//       });
+//     }
+
+//     const newLecture = await Lecture.create({
+//       lectureTitle,
+//       videoUrl: videoInfo.videoUrl,
+//       publicId: videoInfo.publicId,
+//     });
+
+//     await Course.findByIdAndUpdate(courseId, {
+//       $push: { lectures: newLecture._id },
+//     });
+
+//     return res.status(201).json({
+//       success: true,
+//       newLecture,
+//     });
+//   } catch (error) {
+//     return res.status(500).json({ success: false });
+//   }
+// };
+
 export const createLecture = async (req, res) => {
   try {
-    const { lectureTitle, videoInfo } = req.body;
+    const { lectureTitle } = req.body;
     const { courseId } = req.params;
 
-    if (!lectureTitle || !courseId || !videoInfo?.videoUrl) {
+    if (!lectureTitle || !courseId) {
       return res.status(400).json({
         success: false,
-        message: "Lecture title and video are required",
+        message: "Lecture title is required",
       });
     }
 
     const newLecture = await Lecture.create({
       lectureTitle,
-      videoUrl: videoInfo.videoUrl,
-      publicId: videoInfo.publicId,
+      videoUrl: "",
+      publicId: "",
     });
 
     await Course.findByIdAndUpdate(courseId, {
@@ -59,10 +90,12 @@ export const createLecture = async (req, res) => {
 
     return res.status(201).json({
       success: true,
-      newLecture,
+      message: "Lecture created successfully",
+      lecture: newLecture,
     });
   } catch (error) {
-    return res.status(500).json({ success: false });
+    console.error(error);
+    res.status(500).json({ success: false });
   }
 };
 
