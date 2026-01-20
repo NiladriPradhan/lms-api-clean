@@ -28,7 +28,11 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://lms-client-clean.vercel.app"],
+    origin: [
+      "http://localhost:5173",
+      "https://lms-client-clean.vercel.app",
+      "https://lms-frontend-v2-pink.vercel.app/",
+    ],
     credentials: true,
   }),
 );
