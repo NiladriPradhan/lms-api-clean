@@ -22,7 +22,7 @@ const router = express.Router();
 
 router.route("/create").post(isAuthenticated, createCourse);
 router.route("/courses").get(isAuthenticated, getAllCourse);
-router.route("/search").get(isAuthenticated, searchCourse);
+router.route("/search").get(searchCourse);
 router.route("/published-courses").get(getPublishedCourse);
 router
   .route("/:courseId")
